@@ -21,12 +21,28 @@ const Home: NextPage = () => {
     productos: {},
   };
 
-
   const [cart, updateCart] = useState(defaultCart);
 
-  const cartItems = Object.keys(cart.productos).map(key => {
-    const producto = productos.find(({id})=>`${id} === ${key}`)
-  })
+  const cartItems = Object.keys(cart.productos).map((key) => {
+    const producto = productos.find(({ id }) => `${id} === ${key}`);
+    return {
+      ...cart.productos[key],
+      pricePerItem: producto?.price,
+    };
+  });
+
+  console.log(cartItems, 'Cantidad carrito');
+
+  const subtotal = cartItems.reduce(
+    (accumulator, { pricePerItem, quantity }) => {
+      return accumulator + pricePerItem * quantity;
+    },
+    0
+  );
+
+  const totalItems = cartItems.reduce((accumulator, { quantity }) => {
+    return accumulator + quantity;
+  }, 0);
 
   function addToCart(id: number): any {
     updateCart((prev: any) => {
@@ -71,8 +87,8 @@ const Home: NextPage = () => {
 
           <div>
             <h2 className="text-white">Carrito</h2>
-            <p className="text-white">Items: 2</p>
-            <p className="text-white">Total Cost: $20</p>
+            <p className="text-white">Items: {totalItems}</p>
+            <p className="text-white">Total Cost: ${subtotal}</p>
             <button className="px-4 py-2 font-semibold text-blue-700 bg-transparent border border-blue-500 rounded hover:bg-blue-500 hover:text-white hover:border-transparent">
               Check Out
             </button>
