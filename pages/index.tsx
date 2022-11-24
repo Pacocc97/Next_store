@@ -1,20 +1,49 @@
 import { NextPage } from 'next';
+import { defaultConfig } from 'next/dist/server/config-shared';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 interface Products {
-  id: number,
-  title: string,
-  price: number,
-  description: string,
-  category: string,
-  image: string,
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  image: string;
 }
 
 const Home: NextPage = () => {
   const [productos, setProductos] = useState<Array<Products>>([]);
+
+  const defaultCart: any = {
+    productos: {},
+  };
+
+
+  const [cart, updateCart] = useState(defaultCart);
+
+  const cartItems = Object.keys(cart.productos).map(key => {
+    const producto = productos.find(({id})=>`${id} === ${key}`)
+  })
+
+  function addToCart(id: number): any {
+    updateCart((prev: any) => {
+      let cartState = { ...prev };
+
+      if (cartState.productos[id]) {
+        cartState.productos[id].quantity = cartState.productos[id].quantity + 1;
+      } else {
+        cartState.productos[id] = {
+          id,
+          quantity: 1,
+        };
+      }
+
+      return cartState;
+    });
+  }
 
   useEffect(() => {
     fetch('https://fakestoreapi.com/products')
@@ -25,6 +54,7 @@ const Home: NextPage = () => {
   }, []);
 
   console.log(productos, 'hola');
+  console.log(cart, 'carrito');
 
   return (
     <>
@@ -39,10 +69,21 @@ const Home: NextPage = () => {
             Hola Mundo!
           </h1>
 
+          <div>
+            <h2 className="text-white">Carrito</h2>
+            <p className="text-white">Items: 2</p>
+            <p className="text-white">Total Cost: $20</p>
+            <button className="px-4 py-2 font-semibold text-blue-700 bg-transparent border border-blue-500 rounded hover:bg-blue-500 hover:text-white hover:border-transparent">
+              Check Out
+            </button>
+          </div>
+
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-         
             {productos.map((producto) => (
-              <div key={producto.id} className="flex flex-col max-w-xs gap-4 p-4 text-white rounded-xl bg-white/10 hover:bg-white/20">
+              <div
+                key={producto.id}
+                className="flex flex-col max-w-xs gap-4 p-4 text-white rounded-xl bg-white/10 hover:bg-white/20"
+              >
                 <Image
                   src={producto.image}
                   alt="foto"
@@ -51,6 +92,14 @@ const Home: NextPage = () => {
                 />
                 <h3 className="text-2xl font-bold">{producto.title}</h3>
                 <div className="text-lg">{producto.description}</div>
+                <button
+                  onClick={() => {
+                    addToCart(producto.id);
+                  }}
+                  className="px-4 py-2 font-semibold text-blue-700 bg-transparent border border-blue-500 rounded hover:bg-blue-500 hover:text-white hover:border-transparent"
+                >
+                  Comprar
+                </button>
               </div>
             ))}
           </div>
