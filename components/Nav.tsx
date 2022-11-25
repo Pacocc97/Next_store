@@ -9,9 +9,9 @@ const Nav = () => {
       <div className="container flex flex-wrap items-center justify-between mx-auto">
         <Link className="flex items-center" href="/">
           <Image
-            width={50}
-            height={50}
-            src="https://flowbite.com/docs/images/logo.svg"
+            width={40}
+            height={10}
+            src={'/logo.png'}
             className="h-6 mr-3 sm:h-9"
             alt="Flowbite Logo"
           />

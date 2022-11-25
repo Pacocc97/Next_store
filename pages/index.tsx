@@ -12,6 +12,10 @@ export interface Products {
   description: string;
   category: string;
   image: string;
+  rating: {
+    rate: number;
+    count: 120
+  }
 }
 function cn(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
@@ -63,7 +67,7 @@ const Home: NextPage = () => {
               >
                 <Link href={`/products/${producto.id}`}>
                   <Image
-                    width={50}
+                    width={500}
                     height={50}
                     src={producto.image}
                     alt="foto"
@@ -77,7 +81,7 @@ const Home: NextPage = () => {
                   />
                 </Link>
                 <h3 className="text-2xl font-bold">{producto.title}</h3>
-                <div className="text-lg">{producto.description}</div>
+            <p>$ {producto.price}</p>
                 <button
                   onClick={() => {
                     addToCart(producto.id);
