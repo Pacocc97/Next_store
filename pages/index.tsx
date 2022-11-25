@@ -14,8 +14,8 @@ export interface Products {
   image: string;
   rating: {
     rate: number;
-    count: 120
-  }
+    count: number;
+  };
 }
 function cn(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
@@ -53,211 +53,198 @@ const Home: NextPage = () => {
         />
       </Head>
 
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-          <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem] sm:text-red-500 md:text-green-500">
-            Mi tienda
-          </h1>
+      <main className="flex flex-col items-center justify-center min-h-screen">
+        <div className="relative w-full px-12 py-12 -mt-24 bg-yellow-900">
+          <div className="relative z-10 py-24 text-center md:py-48">
+            <h1 className="mb-12 text-3xl font-bold text-center text-white md:text-4xl lg:text-5xl xl:text-6xl font-display">
+              hola
+            </h1>
+            <a
+              href="{{ home.button_link }}"
+              className="inline-block px-8 py-4 text-sm tracking-widest text-white uppercase bg-yellow-800 font-heading"
+            >
+              hola
+            </a>
+          </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-            {productos.map((producto) => (
-              <div
-                key={producto.id}
-                className="flex flex-col max-w-xs gap-4 p-4 text-white rounded-xl bg-white/10 hover:bg-white/20"
+          <div className="relative z-10 flex justify-between max-w-4xl mx-auto text-sm tracking-widest text-white uppercase font-heading">
+            <a href="{{ home.link_one }}" className="border-b border-white">
+              hola
+            </a>
+            <a href="{{ home.link_two }}" className="border-b border-white">
+              hola
+            </a>
+          </div>
+
+          <Image
+            alt="hola"
+            width={500}
+            height={500}
+            src={'/images/sample-pic.jpg'}
+            className="absolute inset-0 object-cover w-full h-full opacity-70"
+          />
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2">
+          <div className="flex items-center justify-end p-12 bg-white md:p-24">
+            <a href="{{ post.url }}">
+              <Image
+                alt="hola"
+                width={50}
+                height={50}
+                src={'/images/sample-pic.jpg'}
+                className="w-full max-w-md"
+              />
+            </a>
+          </div>
+
+          <div className="flex items-center justify-start p-12 bg-gray-100 md:p-24">
+            <div className="max-w-md">
+              <div className="w-24 h-2 mb-4 bg-yellow-800"></div>
+              <h2 className="mb-6 text-2xl font-bold font-display md:text-3xl lg:text-4xl">
+                Hola
+              </h2>
+              <p className="mb-6 text-sm font-light leading-relaxed text-gray-600 md:text-base">
+                Parrafo
+              </p>
+              <a
+                href="{{ post.url }}"
+                className="inline-block px-8 py-3 text-sm font-light tracking-widest text-yellow-800 uppercase border-2 border-yellow-800 hover:bg-yellow-800 hover:text-white"
               >
-                <Link href={`/products/${producto.id}`}>
-                  <Image
-                    width={500}
-                    height={50}
-                    src={producto.image}
-                    alt="foto"
-                    className={cn(
-                      'duration-700 ease-in-out group-hover:opacity-75',
-                      loading
-                        ? 'scale-110 blur-2xl grayscale'
-                        : 'scale-100 blur-0 grayscale-0'
-                    )}
-                    onLoadingComplete={() => setLoading(false)}
-                  />
-                </Link>
-                <h3 className="text-2xl font-bold">{producto.title}</h3>
-            <p>$ {producto.price}</p>
-                <button
-                  onClick={() => {
-                    addToCart(producto.id);
-                  }}
-                  className="px-4 py-2 font-semibold text-blue-700 bg-transparent border border-blue-500 rounded hover:bg-blue-500 hover:text-white hover:border-transparent"
-                >
-                  Comprar
-                </button>
-              </div>
-            ))}
+                Read more
+              </a>
+            </div>
           </div>
-          <div className="flex flex-col items-center gap-2">
-            <p className="text-2xl text-white">hola</p>
-          </div>
-        </div>
-      </main>
-      <div className="relative w-full px-12 py-12 -mt-24 bg-yellow-900">
-        <div className="relative z-10 py-24 text-center md:py-48">
-          <h1 className="mb-12 text-3xl font-bold text-center text-white md:text-4xl lg:text-5xl xl:text-6xl font-display">
-            hola
-          </h1>
-          <a
-            href="{{ home.button_link }}"
-            className="inline-block px-8 py-4 text-sm tracking-widest text-white uppercase bg-yellow-800 font-heading"
-          >
-            hola
-          </a>
-        </div>
-
-        <div className="relative z-10 flex justify-between max-w-4xl mx-auto text-sm tracking-widest text-white uppercase font-heading">
-          <a href="{{ home.link_one }}" className="border-b border-white">
-            hola
-          </a>
-          <a href="{{ home.link_two }}" className="border-b border-white">
-            hola
-          </a>
         </div>
 
         <Image
           alt="hola"
-          width={500}
-          height={500}
-          src={"/images/sample-pic.jpg"}
-
-          className="absolute inset-0 object-cover w-full h-full opacity-70"
+          src={'/images/sample-pic.jpg'}
+          width={50}
+          height={50}
+          className="object-cover w-full h-screen"
         />
-      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2">
-        <div className="flex items-center justify-end p-12 bg-white md:p-24">
-          <a href="{{ post.url }}">
+        <div className="max-w-xl py-24 mx-auto text-center md:py-32">
+          <div className="w-24 h-2 mx-auto mb-4 bg-yellow-800"></div>
+          <h2 className="mb-6 text-3xl font-bold font-display md:text-4xl lg:text-5xl">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
+              {productos.map((producto) => (
+                <div
+                  key={producto.id}
+                  className="flex flex-col max-w-xs gap-4 p-4 text-black rounded-xl bg-white/10 hover:bg-white/20"
+                >
+                  <Link href={`/products/${producto.id}`}>
+                    <Image
+                      width={500}
+                      height={50}
+                      src={producto.image}
+                      alt="foto"
+                      className={cn(
+                        'duration-700 ease-in-out group-hover:opacity-75',
+                        loading
+                          ? 'scale-110 blur-2xl grayscale'
+                          : 'scale-100 blur-0 grayscale-0'
+                      )}
+                      onLoadingComplete={() => setLoading(false)}
+                    />
+                  </Link>
+                  <h3 className="text-2xl font-bold">{producto.title}</h3>
+                  <p>$ {producto.price}</p>
+                  <button
+                    onClick={() => {
+                      addToCart(producto.id);
+                    }}
+                    className="px-4 py-2 font-semibold text-blue-700 bg-transparent border border-blue-500 rounded hover:bg-blue-500 hover:text-white hover:border-transparent"
+                  >
+                    Añadir
+                  </button>
+                </div>
+              ))}
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <p className="text-2xl text-white">hola</p>
+            </div>
+          </h2>
+          <p className="mb-6 font-light leading-relaxed text-gray-600">
+            {' '}
+            home.cta_description{' '}
+          </p>
+        </div>
+
+        <div className="flex flex-wrap bg-black">
+          <a
+            href="{{ category.url }}"
+            className="relative flex items-center justify-center w-full tracking-widest text-white uppercase bg-black md:w-auto md:flex-1 h-72 font-heading hover:opacity-75"
+          >
+            <div className="relative z-10">category.data.title </div>
             <Image
               alt="hola"
               width={50}
               height={50}
-              src={"/images/sample-pic.jpg"}
-
-              className="w-full max-w-md"
+              src={'/images/sample-pic.jpg'}
+              className="absolute inset-0 object-cover w-full h-full opacity-50"
             />
           </a>
         </div>
 
-        <div className="flex items-center justify-start p-12 bg-gray-100 md:p-24">
-          <div className="max-w-md">
-            <div className="w-24 h-2 mb-4 bg-yellow-800"></div>
-            <h2 className="mb-6 text-2xl font-bold font-display md:text-3xl lg:text-4xl">
-              Hola
-            </h2>
-            <p className="mb-6 text-sm font-light leading-relaxed text-gray-600 md:text-base">
-              Parrafo
-            </p>
-            <a
-              href="{{ post.url }}"
-              className="inline-block px-8 py-3 text-sm font-light tracking-widest text-yellow-800 uppercase border-2 border-yellow-800 hover:bg-yellow-800 hover:text-white"
-            >
-              Read more
+        <div className="grid grid-cols-1 md:grid-cols-2">
+          <div className="flex items-center justify-start p-12 bg-white md:p-24">
+            <a href="{{ post.url }}">
+              <Image
+                alt="hola"
+                width={50}
+                height={50}
+                src={'/images/sample-pic.jpg'}
+                className="w-full max-w-md"
+              />
             </a>
           </div>
+
+          <div className="flex items-center justify-end p-12 bg-gray-100 md:order-first md:p-24">
+            <div className="max-w-md">
+              <div className="w-24 h-2 mb-4 bg-yellow-800"></div>
+              <h2 className="mb-6 text-2xl font-bold font-display md:text-3xl lg:text-4xl">
+                hola
+              </h2>
+              <p className="mb-6 text-sm font-light leading-relaxed text-gray-600 md:text-base">
+                hola
+              </p>
+              <a
+                href="{{ post.url }}"
+                className="inline-block px-8 py-3 text-sm font-light tracking-widest text-yellow-800 uppercase border-2 border-yellow-800 hover:bg-yellow-800 hover:text-white"
+              >
+                Read more
+              </a>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <Image
-        alt="hola"
-        src={"/images/sample-pic.jpg"}
-        width={50}
-        height={50}
-        className="object-cover w-full h-screen"
-      />
+        <div className="relative w-full px-12 py-12">
+          <div className="relative z-10 py-12 text-center md:py-24">
+            <h1 className="mb-6 text-3xl font-bold text-center text-white md:text-4xl lg:text-5xl xl:text-6xl font-display">
+              home.footer_cta_title{' '}
+            </h1>
+            <p className="mb-10 text-base font-bold text-white md:text-lg">
+              home.footer_cta_description
+            </p>
+            <a
+              href="{{ home.footer_cta_button_link }}"
+              className="inline-block px-8 py-4 text-sm tracking-widest text-white uppercase bg-yellow-800 font-heading"
+            >
+              home.footer_cta_button_text{' '}
+            </a>
+          </div>
 
-      <div className="max-w-xl py-24 mx-auto text-center md:py-32">
-        <div className="w-24 h-2 mx-auto mb-4 bg-yellow-800"></div>
-        <h2 className="mb-6 text-3xl font-bold font-display md:text-4xl lg:text-5xl">
-          {' '}
-          home.cta_title{' '}
-        </h2>
-        <p className="mb-6 font-light leading-relaxed text-gray-600">
-          {' '}
-          home.cta_description{' '}
-        </p>
-      </div>
-
-      <div className="flex flex-wrap bg-black">
-        <a
-          href="{{ category.url }}"
-          className="relative flex items-center justify-center w-full tracking-widest text-white uppercase bg-black md:w-auto md:flex-1 h-72 font-heading hover:opacity-75"
-        >
-          <div className="relative z-10">category.data.title </div>
           <Image
             alt="hola"
             width={50}
             height={50}
-            src={"/images/sample-pic.jpg"}
-
-            className="absolute inset-0 object-cover w-full h-full opacity-50"
+            src={'/images/sample-pic.jpg'}
+            className="absolute inset-0 object-cover w-full h-full"
           />
-        </a>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2">
-        <div className="flex items-center justify-start p-12 bg-white md:p-24">
-          <a href="{{ post.url }}">
-            <Image
-              alt="hola"
-              width={50}
-              height={50}
-              src={"/images/sample-pic.jpg"}
-
-              className="w-full max-w-md"
-            />
-          </a>
         </div>
-
-        <div className="flex items-center justify-end p-12 bg-gray-100 md:order-first md:p-24">
-          <div className="max-w-md">
-            <div className="w-24 h-2 mb-4 bg-yellow-800"></div>
-            <h2 className="mb-6 text-2xl font-bold font-display md:text-3xl lg:text-4xl">
-              hola
-            </h2>
-            <p className="mb-6 text-sm font-light leading-relaxed text-gray-600 md:text-base">
-              hola
-            </p>
-            <a
-              href="{{ post.url }}"
-              className="inline-block px-8 py-3 text-sm font-light tracking-widest text-yellow-800 uppercase border-2 border-yellow-800 hover:bg-yellow-800 hover:text-white"
-            >
-              Read more
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div className="relative w-full px-12 py-12">
-        <div className="relative z-10 py-12 text-center md:py-24">
-          <h1 className="mb-6 text-3xl font-bold text-center text-white md:text-4xl lg:text-5xl xl:text-6xl font-display">
-            home.footer_cta_title{' '}
-          </h1>
-          <p className="mb-10 text-base font-bold text-white md:text-lg">
-            home.footer_cta_description
-          </p>
-          <a
-            href="{{ home.footer_cta_button_link }}"
-            className="inline-block px-8 py-4 text-sm tracking-widest text-white uppercase bg-yellow-800 font-heading"
-          >
-            home.footer_cta_button_text{' '}
-          </a>
-        </div>
-
-        <Image
-          alt="hola"
-          width={50}
-          height={50}
-          src={"/images/sample-pic.jpg"}
-
-          className="absolute inset-0 object-cover w-full h-full"
-        />
-      </div>
+      </main>
     </>
   );
 };
