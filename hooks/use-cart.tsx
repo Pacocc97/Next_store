@@ -35,15 +35,15 @@ export const useCartState = () => {
     const producto = productos.find(({ id }) => `${id} === ${key}`);
     return {
       ...cart.productos[key],
-      pricePerItem: producto?.price,
+      pricePerUnit: producto?.price,
     };
   });
 
   console.log(cartItems, 'Cantidad carrito');
 
   const subtotal = cartItems.reduce(
-    (accumulator, { pricePerItem, quantity }) => {
-      return accumulator + pricePerItem * quantity;
+    (accumulator, { pricePerUnit, quantity }) => {
+      return accumulator + pricePerUnit * quantity;
     },
     0
   );
@@ -70,7 +70,7 @@ export const useCartState = () => {
     });
   }
 
-  return { cart, updateCart, subtotal, totalItems, addToCart };
+  return { cart, updateCart, subtotal, totalItems, addToCart, cartItems };
 };
 
 export function useCart() {

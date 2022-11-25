@@ -1,9 +1,8 @@
 import Head from 'next/head';
-
-
-
+import { useCart } from '../hooks/use-cart';
 import Table from '../components/Table';
-import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { Products } from '.';
 
 const columns = [
   {
@@ -24,16 +23,29 @@ const columns = [
   },
 ];
 
-export default function Home() {
-  const data = [
-    {
-      id: 'my-product',
-      title: 'My Cool Product',
-      quantity: 1,
-      pricePerUnit: 10.0,
-      total: 10.0,
-    },
-  ];
+export default function Cart() {
+  const [productos, setProductos] = useState<Array<Products>>([]);
+
+  useEffect(() => {
+    fetch('https://fakestoreapi.com/products')
+      .then((res) => res.json())
+      .then((data) => {
+        setProductos(data);
+      });
+  }, []);
+
+  const { cartItems } = useCart();
+  const data = cartItems.map(({ id, quantity, pricePerUnit }: any) => {
+    const product = productos.find(({ id: pid }) => pid === id);
+    const { title } = product || {};
+    return {
+      id,
+      title,
+      quantity,
+      pricePerUnit: pricePerUnit.toFixed(2),
+      total: (quantity * pricePerUnit).toFixed(2),
+    };
+  });
 
   return (
     <div>
@@ -43,17 +55,14 @@ export default function Home() {
       </Head>
 
       <main>
-        <h1>
-           Cart
-        </h1>
+        <h1>Cart</h1>
 
-        <Table  data={data} columns={columns} />
+        <Table data={data} columns={columns} />
 
         <p>
           <button>Check Out</button>
         </p>
       </main>
-
     </div>
   );
 }
