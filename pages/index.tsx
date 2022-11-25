@@ -3,9 +3,10 @@ import { defaultConfig } from 'next/dist/server/config-shared';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, createContext } from 'react';
+import { useCart } from '../hooks/use-cart';
 
-interface Products {
+export interface Products {
   id: number;
   title: string;
   price: number;
@@ -15,51 +16,9 @@ interface Products {
 }
 
 const Home: NextPage = () => {
+  const { cart, updateCart, subtotal, totalItems, addToCart } = useCart();
+
   const [productos, setProductos] = useState<Array<Products>>([]);
-
-  const defaultCart: any = {
-    productos: {},
-  };
-
-  const [cart, updateCart] = useState(defaultCart);
-
-  const cartItems = Object.keys(cart.productos).map((key) => {
-    const producto = productos.find(({ id }) => `${id} === ${key}`);
-    return {
-      ...cart.productos[key],
-      pricePerItem: producto?.price,
-    };
-  });
-
-  console.log(cartItems, 'Cantidad carrito');
-
-  const subtotal = cartItems.reduce(
-    (accumulator, { pricePerItem, quantity }) => {
-      return accumulator + pricePerItem * quantity;
-    },
-    0
-  );
-
-  const totalItems = cartItems.reduce((accumulator, { quantity }) => {
-    return accumulator + quantity;
-  }, 0);
-
-  function addToCart(id: number): any {
-    updateCart((prev: any) => {
-      let cartState = { ...prev };
-
-      if (cartState.productos[id]) {
-        cartState.productos[id].quantity = cartState.productos[id].quantity + 1;
-      } else {
-        cartState.productos[id] = {
-          id,
-          quantity: 1,
-        };
-      }
-
-      return cartState;
-    });
-  }
 
   useEffect(() => {
     fetch('https://fakestoreapi.com/products')
@@ -100,12 +59,14 @@ const Home: NextPage = () => {
                 key={producto.id}
                 className="flex flex-col max-w-xs gap-4 p-4 text-white rounded-xl bg-white/10 hover:bg-white/20"
               >
-                <Image
-                  src={producto.image}
-                  alt="foto"
-                  width={500}
-                  height={500}
-                />
+                <Link href={`/products/${producto.id}`}>
+                  <Image
+                    src={producto.image}
+                    alt="foto"
+                    width={500}
+                    height={500}
+                  />
+                </Link>
                 <h3 className="text-2xl font-bold">{producto.title}</h3>
                 <div className="text-lg">{producto.description}</div>
                 <button
