@@ -42,8 +42,8 @@ export default function Cart() {
       id,
       title,
       quantity,
-      pricePerUnit: pricePerUnit.toFixed(2),
-      total: (quantity * pricePerUnit).toFixed(2),
+      pricePerUnit: pricePerUnit, //.toFixed(2), checar esto
+      total: quantity * pricePerUnit, //.toFixed(2), checar esto
     };
   });
 

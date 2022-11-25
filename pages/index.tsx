@@ -14,11 +14,15 @@ export interface Products {
   category: string;
   image: string;
 }
+function cn(...classes: string[]) {
+  return classes.filter(Boolean).join(' ');
+}
 
 const Home: NextPage = () => {
-  const { cart, updateCart, subtotal, totalItems, addToCart } = useCart();
+  const { cart, subtotal, totalItems, addToCart } = useCart();
 
   const [productos, setProductos] = useState<Array<Products>>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch('https://fakestoreapi.com/products')
@@ -65,6 +69,13 @@ const Home: NextPage = () => {
                     alt="foto"
                     width={500}
                     height={500}
+                    className={cn(
+                      'duration-700 ease-in-out group-hover:opacity-75',
+                      loading
+                        ? 'scale-110 blur-2xl grayscale'
+                        : 'scale-100 blur-0 grayscale-0'
+                    )}
+                    onLoadingComplete={() => setLoading(false)}
                   />
                 </Link>
                 <h3 className="text-2xl font-bold">{producto.title}</h3>

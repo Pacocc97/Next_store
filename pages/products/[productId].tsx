@@ -3,14 +3,8 @@ import Image from 'next/image';
 import { Products } from '..';
 import { useCart } from '../../hooks/use-cart';
 
-export default function Product({ product }:any) {
-  const { id, title, image, price, description } = product;
-
-  // const id = 'productId';
-  // const title = 'productId';
-  // const desc = 'productId';
-  // const image = 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg';
-  // const price = 1.0;
+export default function Product({ product }: any) {
+  const { id, title, image, price, description, category } = product;
 
   const { addToCart } = useCart();
 
@@ -22,33 +16,103 @@ export default function Product({ product }:any) {
       </Head>
 
       <main>
-        <div>
-          <Image src={image} alt={title} width={500} height={500} />
+        <div className="sticky top-0 bg-white shadow-sm">
+          <div className="px-4 py-1 mx-auto max-w-7xl sm:px-6 lg:px-8 md:py-4">
+            <div className="flex items-center justify-between md:justify-start"></div>
+          </div>
         </div>
 
-        <div>
-          <h1>{title}</h1>
+        <div className="py-6">
+          <div className="px-4 mx-auto mt-6 max-w-7xl sm:px-6 lg:px-8">
+            <div className="flex flex-col -mx-4 md:flex-row">
+              <div className="px-4 md:flex-1">
+                <div x-data="{ image: 1 }" x-cloak>
+                  <div className="h-64 mb-4 bg-gray-100 rounded-lg md:h-80">
+                    <div
+                      x-show="image === 1"
+                      className="flex items-center justify-center h-64 mb-4 bg-gray-100 rounded-lg md:h-80"
+                    >
+                      <Image
+                        src={image}
+                        alt="producto"
+                        width={200}
+                        height={28}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="px-4 md:flex-1">
+                <h2 className="mb-2 text-2xl font-bold leading-tight tracking-tight text-gray-800 md:text-3xl">
+                  {title}
+                </h2>
+                <p className="text-sm text-gray-500">
+                  Categoría:{' '}
+                  <a href="#" className="text-indigo-600 hover:underline">
+                    {category}
+                  </a>
+                </p>
 
-          <p>{description}</p>
+                <div className="flex items-center my-4 space-x-4">
+                  <div>
+                    <div className="flex px-3 py-2 bg-gray-100 rounded-lg">
+                      <span className="mt-1 mr-1 text-indigo-400">$</span>
+                      <span className="text-3xl font-bold text-indigo-600">
+                        {price}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-xl font-semibold text-green-500">
+                      Ahorre 12%
+                    </p>
+                    <p className="text-sm text-gray-400">Impuestos incluidos</p>
+                  </div>
+                </div>
 
-          <p>${price.toFixed(2)}</p>
+                <p className="text-gray-500">{description}</p>
 
-          <p>
-            <button onClick={() => addToCart({ id })}>Buy</button>
-          </p>
+                <div className="flex py-4 space-x-4">
+                  <div className="relative">
+                    <div className="absolute left-0 right-0 block pt-2 text-xs font-semibold tracking-wide text-center text-gray-400 uppercase">
+                      Qty
+                    </div>
+                    <select className="flex items-end pb-1 pl-4 pr-8 border border-gray-200 appearance-none cursor-pointer rounded-xl h-14">
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                    </select>
+
+                    <svg
+                      className="absolute bottom-0 right-0 w-5 h-5 mb-2 mr-2 text-gray-400"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M8 9l4-4 4 4m0 6l-4 4-4-4"
+                      />
+                    </svg>
+                  </div>
+
+                  <button
+                    type="button"
+                    className="px-6 py-2 font-semibold text-white bg-indigo-600 h-14 rounded-xl hover:bg-indigo-500"
+                  >
+                    Añadir al Carrito
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
-
-      {/* <footer >
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo"  />
-        </a>
-      </footer> */}
     </div>
   );
 }
