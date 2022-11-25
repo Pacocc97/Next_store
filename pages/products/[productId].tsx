@@ -37,6 +37,7 @@ export default function Product({ product }: any) {
                         alt="producto"
                         width={200}
                         height={28}
+                        
                       />
                     </div>
                   </div>

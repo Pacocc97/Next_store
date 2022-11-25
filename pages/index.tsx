@@ -117,15 +117,16 @@ const Home: NextPage = () => {
           </div>
         </div>
 
-        <Image
+        {/* <Image
           alt="hola"
           src={'/images/sample-pic.jpg'}
           width={50}
           height={50}
           className="object-cover w-full h-screen"
-        />
-
+        /> */}
         <div className="max-w-xl py-24 mx-auto text-center md:py-32">
+          <hr />
+          Productos
           <div className="w-24 h-2 mx-auto mb-4 bg-yellow-800"></div>
           <h2 className="mb-6 text-3xl font-bold font-display md:text-4xl lg:text-5xl">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
@@ -144,7 +145,7 @@ const Home: NextPage = () => {
                         'duration-700 ease-in-out group-hover:opacity-75',
                         loading
                           ? 'scale-110 blur-2xl grayscale'
-                          : 'scale-100 blur-0 grayscale-0'
+                          : 'scale-100 blur-0 grayscale-0  hover:scale-150'
                       )}
                       onLoadingComplete={() => setLoading(false)}
                     />
